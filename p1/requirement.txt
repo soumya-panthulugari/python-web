@@ -1,0 +1,6 @@
+Flask-JWT
+flask-mongoengine
+Flask-RESTful
+Flask-WTF
+Flask
+pymongo

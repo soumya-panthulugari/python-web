@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	 <link rel="stylesheet" type="text/css" href="static\images\css\header.css"> 
+	 <link rel="stylesheet" type="text/css" href="static\home.css"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Home</title>
+</head>
+<body>
+	{% block header %}
+	<div class="header">
+		<h1 id="title">The FASHIONTIE</h1>
+
+		<a href="/home"><h3 style="color: white; float: left; display: inline-flex; margin-left: 80px; margin-top: 30px;">HOME</h3></a>
+		<section class="dropdown" style=" float:left; display: inline-flex; margin-left: 20px; margin-top: 3px;">
+		<h3 class="dropbtn" >CATEGORIES</h3>
+		<section style="margin-top: 60px;" class="dropdown-content">
+			<a href="/?productCategory=womenjeans">WOMEN JEANS</a>
+			<a href="/?productCategory=traditionalwear">TRADITIONAL WEAR</a>
+			<a href="/?productCategory=womentops">WOMEN TOPS</a>
+			<a href="/?productCategory=Shoes">SHOES</a>
+		</section>
+		</section>
+		{% if not session['loggedIn'] %}
+		<div id="signInButton">
+			<a style="color: white;" class="link" href="/signin">Sign In</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hello, {{session['username']}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Your orders</a>
+				<a href="/account/profile">Your profile</a>
+				<hr>
+				<a href="/logout">Sign Out</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div id="kart">
+			<a style="color: white;" class="link" href="/cart">
+				<img src='static/images/shoppingCart.png' id="cartIcon" />
+				CART
+			</a>
+		</div>
+	</div>
+	{% endblock %}
+	
+	<div style="background-color: #fad0c4;
+	background-image: linear-gradient(315deg, #fad0c4 0%, #f1a7f1 74%);" class="display">
+		
+		<div class="products">
+		
+			<center><table>
+				<div id="productName">
+					{% for row in prolist | batch(3) %}
+					<div><tr>
+						{% for item in row %}
+						<td class="titem"><center>
+							<a href="/productDescription?productId={{item['productId']}}"> 
+							<img id="productImage" src = {{item["imageURL"]}}>
+							<b>{{item["brand"]}}</b><br>
+							{{item["productName"]}} <br>
+							<h3>${{item["price"]}}</h3></center> </a>
+						</td>
+						{% endfor %}
+					</tr>
+				
+					{% endfor %}
+				</div>
+			</table></center>
+		</div>
+	</div>
+</body>
+</html>

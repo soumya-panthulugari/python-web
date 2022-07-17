@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	 <link rel="stylesheet" type="text/css" href="\static\images\css\header.css"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Orders</title>
+</head>
+<body>
+	{% block header %}
+	<div class="header">
+		<h1 id="title">The FASHIONTIE</h1>
+
+		<a href="/home"><h3 style="color: white; float: left; display: inline-flex; margin-left: 80px; margin-top: 30px;">HOME</h3></a>
+		<section class="dropdown" style=" float:left; display: inline-flex; margin-left: 20px; margin-top: 3px;">
+		<h3 class="dropbtn" >CATEGORIES</h3>
+		<section style="margin-top: 60px;" class="dropdown-content">
+			<a href="/?productCategory=womenjeans">WOMEN JEANS</a>
+			<a href="/?productCategory=traditionalwear">TRADITIONAL WEAR</a>
+			<a href="/?productCategory=womentops">WOMEN TOPS</a>
+			<a href="/?productCategory=Shoes">SHOES</a>
+		</section>
+		</section>
+		{% if not session['loggedIn'] %}
+		<div id="signInButton">
+			<a style="color: white;" class="link" href="/signin">Sign In</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hello, {{session['username']}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Your orders</a>
+				<a href="/account/profile">Your profile</a>
+				<hr>
+				<a href="/logout">Sign Out</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div id="kart">
+			<a style="color: white;" class="link" href="/cart">
+				<img src='/static/images/shoppingCart.png' id="cartIcon" />
+				CART
+			</a>
+		</div>
+	</div>
+	{% endblock %}
+	
+	<div>
+        <table>
+        {% for i in orders %}
+            {% if i['email'] == session['username'] %}
+                <tr>
+                    <td><a style="text-decoration: none; color:black;" href="/productDescription?productId={{i['productId']}}"><h5>{{i['productName']}} </h5></a></td>
+                    <td><h5> $ {{i['productPrice']}}</h5></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="\static\images\css\header.css">
+    <title>{{user['Name']}}</title>
+</head>
+<body>
+    <div class="header">
+		<h1 id="title">The FASHIONTIE</h1>
+
+		<a href="/home"><h3 style="color: white; float: left; display: inline-flex; margin-left: 80px; margin-top: 30px;">HOME</h3></a>
+		<section class="dropdown" style=" float:left; display: inline-flex; margin-left: 20px; margin-top: 3px;">
+		<h3 class="dropbtn" >CATEGORIES</h3>
+		<section style="margin-top: 60px;" class="dropdown-content">
+			<a href="/?productCategory=womenjeans">WOMEN JEANS</a>
+			<a href="/?productCategory=traditionalwear">TRADITIONAL WEAR</a>
+			<a href="/?productCategory=womentops">WOMEN TOPS</a>
+			<a href="/?productCategory=Shoes">SHOES</a>
+		</section>
+		</section>
+		{% if not session['loggedIn'] %}
+		<div id="signInButton">
+			<a style="color: white;" class="link" href="/signin">Sign In</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hello, {{session['username']}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Your orders</a>
+				<a href="/account/profile">Your profile</a>
+				<hr>
+				<a href="/logout">Sign Out</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div id="kart">
+			<a style="color: white;" class="link" href="/cart">
+				<img src='/static/images/shoppingCart.png' id="cartIcon" />
+				CART
+			</a>
+		</div>
+	</div>
+    <center style="background-color: black; color: white; border-radius: 10px; border: 3px; border-style: solid; margin: 30px 200px 0px 200px;">
+    {% for i in user %}
+    {% if i == 'Name' %}
+    <p><b>Name:</b> {{user[i]}}</p>
+    {% endif %}
+    {% if i == 'Address' %}
+    <p><b>Address:</b> {{user[i]}}</p>
+    {% endif %}
+    {% if i == 'email' %}
+    <p><b>email:</b> {{user[i]}}</p>
+    {% endif %}
+    {% endfor %}
+    </center>
+</body>
+</html>

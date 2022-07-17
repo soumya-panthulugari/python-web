@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="static\images\css\header.css"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+</head>
+<body>
+    <div class="header">
+		<h1 id="title">The FASHIONTIE</h1>
+		<a href="/home"><h3 style=" float: left; display: inline-flex; margin-left: 80px; margin-top: 30px;">HOME</h3></a>
+		<section class="dropdown" style=" float:left; display: inline-flex; margin-left: 20px; margin-top: 3px;">
+		<h3 class="dropbtn" >CATEGORIES</h3>
+		<section class="dropdown-content">
+			<a href="/?productCategory=womenjeans">WOMEN JEANS</a>
+			<a href="/?productCategory=traditionalwear">TRADITIONAL WEAR</a>
+			<a href="/?productCategory=womentops">WOMEN TOPS</a>
+			<a href="/?productCategory=Shoes">SHOES</a>
+		</section>
+		</section>
+		{% if not session['loggedIn'] %}
+		<div id="signInButton">
+			<a class="link" href="/signin">Sign In</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hello, {{session['username']}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Your orders</a>
+				<a href="/account/profile">Your profile</a>
+				<hr>
+				<a href="/logout">Sign Out</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div id="kart">
+			<a class="link" href="/cart">
+				<img src='static/images/shoppingCart.png' id="cartIcon" />
+				CART
+			</a>
+		</div>
+	</div>
+    <h1>Add Product</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <div><label>Product Name:</label></div>
+        <div><input name="pname" type="text"></div>
+        <div><label>Product Brand:</label></div>
+        <div><input name="brand" type="text"></div>
+        <div><label>Price: </label></div>
+        <div><input name="price" type="number"></div>
+        <div><label>Description: </label></div>
+        <div><textarea name="description" ></textarea>
+
+        <div><label>Product Image:</label></div>
+        <div><input name="pimage" type="file"></div><br>
+
+        <div><label>Product Image URL:</label></div>
+        <div><input name="pimageURL" type="url"></div><br>
+        <div><label>Product ID:</label></div>
+        <div><input name="productId" type="text"></div><br>
+        <div><label>Product Category:</label></div>
+        <select id="cars" name="productCategory">
+            <option value="womenjeans">WOMEN Jeans</option>
+            <option value="Traditionalwear">TRADITIONAL WEAR</option>
+            <option value="womentops">WOMen TOPS</option>
+            <option value="Shoes">Shoes</option>
+        </select><br><br>
+        <div><button type="submit">Submit</button></div>
+    </form>
+</body>
+</html>

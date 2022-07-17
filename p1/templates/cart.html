@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="static\images\css\header.css"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        table {
+            border-spacing: 30px;
+            border-style: solid;
+            border-radius: 3px;
+            border-color: black;
+        }
+        tr {
+            border-style: solid;
+            border-radius: 3px;
+            border-color: black;
+        }
+        #total {
+            border-style: solid;
+            border-radius: 3px;
+            border-color: black;
+        }
+    </style>
+</head>
+<body>
+    
+	<div class="header">
+		<h1 id="title">The FASHIONTIE</h1>
+		<a href="/home"><h3 style=" float: left; display: inline-flex; margin-left: 80px; margin-top: 30px;">HOME</h3></a>
+		<section class="dropdown" style=" float:left; display: inline-flex; margin-left: 20px; margin-top: 3px;">
+		<h3 class="dropbtn" >CATEGORIES</h3>
+		<section style="margin-top: 60px;" class="dropdown-content">
+			<a href="/?productCategory=womenjeans">WOMEN JEANS</a>
+			<a href="/?productCategory=traditionalwear">TRADITIONAL WEAR</a>
+			<a href="/?productCategory=womentops">WOMEN TOPS</a>
+			<a href="/?productCategory=Shoes">SHOES</a>
+		</section>
+		</section>
+		{% if not session['loggedIn'] %}
+		<div id="signInButton">
+			<a class="link" href="/signin">Sign In</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hello, {{session['username']}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Your orders</a>
+				<a href="/account/profile">Your profile</a>
+				<hr>
+				<a href="/logout">Sign Out</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div id="kart">
+			<a class="link" href="/cart">
+				<img src='static/images/shoppingCart.png' id="cartIcon" />
+				CART
+			</a>
+		</div>
+	</div>
+
+    <h1>CART</h1>
+
+    <div>
+        <table>
+        {% for i in cart %}
+            {% if i['user'] == session['username'] %}
+                <tr>
+                    <td><a style="text-decoration: none; color:black;" href="/productDescription?productId={{i['productId']}}"><h5>{{i['productName']}} </h5></a></td>
+                    <td><a href="/removeItem?productId={{i['productId']}}">Remove Item</a></td>
+                    <td><h5>{{i['productPrice']}}</h5></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        {% if count>0 %}
+        <tr id="total">
+            <td><h1>Total Amount</h1></td>
+            <td><h3>{{total}}</h3></td>
+        </tr>
+        </table><br>
+        <a id="proceedButton" href="/buynow"><button>Proceed To CheckOut</button></a>
+        {% else %}
+        <p>Cart is Empty</p>
+        {% endif %}
+    </div>
+</body>
+</html>

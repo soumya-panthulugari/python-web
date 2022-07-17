@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{currProduct['productName']}}</title>
+    <link rel="stylesheet" type="text/css" href="static\images\css\header.css"> 
+    <style>
+        * {
+            text-decoration: none;
+        }
+        #display {
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+#productImage {
+	height: 250px;
+	width: 200px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: inline-block;
+	float: left;
+}
+
+#productDescription {
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: inline-block;
+	font-size: 19px;
+}
+
+#descriptionTable td {
+	width: 150px;
+}
+
+#addToCart {
+	font-size: 20px;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    
+	<div class="header">
+		<h1 id="title">The FASHIONTIE</h1>
+		<a href="/home"><h3 style=" float: left; display: inline-flex; margin-left: 80px; margin-top: 30px;">HOME</h3></a>
+		<section class="dropdown" style=" float:left; display: inline-flex; margin-left: 20px; margin-top: 3px;">
+		<h3 class="dropbtn" >CATEGORIES</h3>
+		<section style="margin-top: 60px;" class="dropdown-content">
+			<a href="/?productCategory=womenjeans">WOMEN JEANS</a>
+			<a href="/?productCategory=traditionalwear">TRADITIONAL WEAR</a>
+			<a href="/?productCategory=womentops">WOMEN TOPS</a>
+			<a href="/?productCategory=Shoes">SHOES</a>
+		</section>
+		</section>
+		{% if not session['loggedIn'] %}
+		<div id="signInButton">
+			<a class="link" href="/signin">Sign In</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hello, {{session['username']}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Your orders</a>
+				<a href="/account/profile">Your profile</a>
+				<hr>
+				<a href="/logout">Sign Out</a>
+			</div>
+		</div>
+		{% endif %}
+
+		<div id="kart">
+			<a class="link" href="/cart">
+				<img src='static/images/shoppingCart.png' id="cartIcon" />
+				CART
+			</a>
+		</div>
+	</div>
+
+    <div id="display">
+        <div id="productName"><h1>{{currProduct['productName']}}</h1></div>
+      
+            <img style="height: 400px; width:300px" id="productImage" src="{{currProduct['imageURL']}}">
+        
+
+        <!-- <div id="productDescription"> -->
+            <br><br>
+            <h2>DETAILS</h2>
+            <table id="descriptionTable">
+                <tr><td>NAME: </td><td>{{currProduct['productName']}}</td></tr>
+                <tr><td>BRAND: </td><td>{{currProduct['brand']}}</td></tr>
+                <tr><td>PRICE: </td><td>${{currProduct['price']}}</td></tr>
+                <tr><td>PRODUCT ID: </td><td>{{currProduct['productId']}}</td></tr>
+                <tr><td>PRODUCT CATEGORY: </td><td>{{currProduct['productCategory']}}</td></tr>
+            </table>
+            <h2>DESCRIPTION</h2>
+            <p>{{currProduct['description']}}</p>
+            <!-- <button id="addToCart"><a href="/buynow?productId={{request.args.get('productId')}}">Buy Now</a></button> -->
+            <button id="addToCart"><a href="/addToCart?productId={{request.args.get('productId')}}">Add to Cart</a></button>
+    </div>
+</body>
+</html>
